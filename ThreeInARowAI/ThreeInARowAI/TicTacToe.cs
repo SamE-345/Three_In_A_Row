@@ -22,18 +22,33 @@ namespace ThreeInARowAI
             set;
         }
         
-        public void AddTopLeft(char player)
+        public bool AddTopLeft(char player)
         {
             if (grid[0, 0] == ' ')
             {
                 grid[0, 0] = player;
                 moves++;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
-        public void AddTopRight(char player)
+        public bool AddTopRight(char player)
         {
-            grid[0,2] = player;
-            moves++;
+            if (grid[0,2]==' ')
+            {
+                grid[0, 2] = player;
+                moves++;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+            
         }
         public void AddTopMiddle(char player)
         {
