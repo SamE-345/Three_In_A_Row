@@ -8,6 +8,8 @@ namespace ThreeInARowAI
 {
     internal class TicTacToe
     {
+        public TicTacToe ParentClass;
+        public int pathCost = 0;
         public char[,] grid =
         {
             { ' ',' ',' ' },

@@ -25,13 +25,25 @@ namespace ThreeInARowAI
                 TicTacToe node = Frontier.Pop();
                 Action Expand = new Action(node.grid);
                 // Receive the stack from Expand.TryALL and and all of the nodes onto the frontier.
+               
                 Stack<char[,]> ChildNodes = Expand.TryAll(AIChar);
+
                 for (int i = 0; i < ChildNodes.Count; i++)
                 {
                     TicTacToe newState = new TicTacToe(ChildNodes.Pop());
-                    Frontier.Push(newState);
+                    newState.ParentClass = node;
+                    newState.pathCost = node.pathCost + 1;
+                    // Adds a reference to the parent node so you can backtrack
+                    if (!CheckedNodes.Contains(newState))
+                    {
+                        Frontier.Push(newState);
+                        // Adds the new nodes to the frontier and doesn't allow for dupes
+                    }
 
                 }
+                CheckedNodes.Add(node);
+                // Adds a node to the explored set
+                
             }
         }
 
