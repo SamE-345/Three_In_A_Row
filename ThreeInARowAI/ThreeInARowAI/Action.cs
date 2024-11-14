@@ -178,10 +178,6 @@ namespace ThreeInARowAI
             {
                 ChildNodes.Push(AddBottomRight(Player));
             }
-            else if(ChildNodes.Count == 0)
-            {
-                // If ChildNodes is empty, we have a leaf node and should be checked for a winner.
-            }
             return ChildNodes;
         }
     }

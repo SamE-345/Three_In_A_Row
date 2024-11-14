@@ -25,7 +25,7 @@ namespace ThreeInARowAI
         }
         
         
-        public int winner(int[,] grid)
+        public int winner()
         {
             // Player X returns 1
             // Player O returns -1
