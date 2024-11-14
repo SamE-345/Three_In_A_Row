@@ -10,13 +10,14 @@ namespace ThreeInARowAI
     {
         public TicTacToe ParentClass;
         public int pathCost = 0;
+        public Action Moves;
         public char[,] grid =
         {
             { ' ',' ',' ' },
             { ' ',' ',' ' },
             { ' ',' ',' ' }
         };
-        public TicTacToe(char[,] Passed_grid) { grid = Passed_grid; moves = 0; }
+        public TicTacToe(char[,] Passed_grid) { grid = Passed_grid; moves = 0; Action NewMoves = new Action(grid); Moves = NewMoves }
        
         public int moves  
         {

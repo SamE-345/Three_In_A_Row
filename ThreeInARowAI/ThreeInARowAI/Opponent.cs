@@ -26,11 +26,18 @@ namespace ThreeInARowAI
         {
             while (Frontier.Count > 0)
             {
+                Stack<char[,]> ChildNodes;
                 TicTacToe node = Frontier.Pop();
                 Action Expand = new Action(node.grid);
                 // Receive the stack from Expand.TryALL and and all of the nodes onto the frontier.
-
-                Stack<char[,]> ChildNodes = Expand.TryAll(AIChar);
+                if (node.pathCost % 2 == 1)
+                {
+                    ChildNodes = Expand.TryAll(AIChar);
+                }
+                else
+                {
+                    ChildNodes = Expand.TryAll('X');
+                }
                 if (ChildNodes.Count == 0) // If it is a leaf node
                 {
                     if (node.winner() == -1)
@@ -51,14 +58,17 @@ namespace ThreeInARowAI
                     for (int i = 0; i < ChildNodes.Count; i++)
                     {
                         TicTacToe newState = new TicTacToe(ChildNodes.Pop());
-                        newState.ParentClass = node;
+                        newState.ParentClass = node;  // Adds a reference to the parent node so you can backtrack
                         newState.pathCost = node.pathCost + 1;
-                        // Adds a reference to the parent node so you can backtrack
-                        if (!CheckedNodes.Contains(newState))
-                        {
-                            Frontier.Push(newState);
-                            // Adds the new nodes to the frontier and doesn't allow for dupes
+                        if  (node.pathCost%2 == 1) {
+                            if (!CheckedNodes.Contains(newState))
+                            {
+                                Frontier.Push(newState);
+                                // Adds the new nodes to the frontier and doesn't allow for dupes
+                            }
+
                         }
+                       
 
                     }
                     CheckedNodes.Add(node);
