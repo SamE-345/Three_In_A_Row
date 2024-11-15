@@ -13,7 +13,7 @@
             };
             TicTacToe Game1 = new TicTacToe(grid);
 
-            Game1.Moves.AddTopLeft('X');
+            Game1.NewInput();
         }
     }
 }

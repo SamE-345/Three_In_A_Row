@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ThreeInARowAI
 {
-    internal class Opponent<T>
+    internal class Opponent
     {
-        // AIChar is always O
-        char AIChar = 'O';
+        // AIChar is always X
+        char AIChar = 'X';
         Stack<TicTacToe> Frontier;
         HashSet<TicTacToe> CheckedNodes;
         List<TicTacToe> Winners = new List<TicTacToe>();
@@ -36,7 +36,7 @@ namespace ThreeInARowAI
                 }
                 else
                 {
-                    ChildNodes = Expand.TryAll('X');
+                    ChildNodes = Expand.TryAll('O');
                 }
                 if (ChildNodes.Count == 0) // If it is a leaf node
                 {

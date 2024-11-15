@@ -116,7 +116,6 @@ namespace ThreeInARowAI
             if (InitialState[2, 1] == ' ')
             {
                 newState[2, 1] = player;
-
                 return newState;
             }
             else
