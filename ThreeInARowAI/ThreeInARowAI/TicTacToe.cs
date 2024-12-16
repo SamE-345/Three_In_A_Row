@@ -18,16 +18,7 @@ namespace ThreeInARowAI
             { ' ',' ',' ' }
         };
         public TicTacToe(char[,] Passed_grid) { grid = Passed_grid; moves = 0; }
-        public void game()
-        {
-            while (winner() == -2)
-            {
-                NewInput();
-                Opponent AiMove = new Opponent(grid);
-
-            }
-            
-        }
+        
         public int moves  
         {
             get;
@@ -48,18 +39,18 @@ namespace ThreeInARowAI
                     {
                         return 1;
                     }
-                    else
+                    else if (grid[i,0] == 'O')
                     {
                         return -1;
                     }
                 }
                 else if (grid[0, i] == grid[1, i] && grid[0, i] == grid[2, i])
                 {
-                    if (grid[i, 0] == 'X')
+                    if (grid[0, i] == 'X')
                     {
                         return 1;
                     }
-                    else
+                    else if (grid[0,i]=='O')
                     {
                         return -1;
                     }
@@ -71,18 +62,18 @@ namespace ThreeInARowAI
                 {
                     return 1;
                 }
-                else
+                else if (grid[0,0] == 'O')
                 {
                     return -1;
                 }
             }
             else if (grid[0, 2] == grid[1, 1] && grid[0, 2] == grid[2, 0])
             {
-                if (grid[0, 0] == 'X')
+                if (grid[0, 2] == 'X')
                 {
                     return 1;
                 }
-                else
+                else if (grid[0,2]=='O')
                 {
                     return -1;
                 }
@@ -104,25 +95,21 @@ namespace ThreeInARowAI
         {
             Action PlayerAction = new Action(grid);
             ConsoleKeyInfo key = Console.ReadKey();
-            Thread.Sleep(100);
+            Thread.Sleep(500);
+            Console.Clear();
             char Input = key.KeyChar;
             bool ValidInt = false;
             char[,] PostActionGrid = new char[3, 3];
-            while (ValidInt == false)
+            do
             {
-                Console.WriteLine("Please enter a number between 1-9");
-                try
-                {
-                    int abc = Convert.ToInt32(Input);
+                //Console.WriteLine("Please enter a number between 1-9");
+                
+                    int abc = Convert.ToInt32(Input)-'0';
+                    Console.WriteLine(abc);
                     ValidInt = true;
-                }
-                catch
-                {
-                    Console.WriteLine("Please enter a number between 1-9");
-                    key = Console.ReadKey();
-                    Input = key.KeyChar;
-                }
-                if (ValidInt == true && Input < 10 && Input > 0)
+                
+               
+                if (ValidInt == true && Input-'0' < 10 && Input-'0' > 0)
                 {
                     if (Input == 1)
                     {
@@ -234,9 +221,9 @@ namespace ThreeInARowAI
                         }
                     }
                 }
-                else { ValidInt = false; }
+                else { ValidInt = false; Console.WriteLine("Enter a number between 1-9");  key = Console.ReadKey(); Input = key.KeyChar; }
                 
-            }
+            }while (!ValidInt);
             return null;
         }
         public void UpdateGrid(char[,] Newgrid)

@@ -24,8 +24,16 @@
                 }
             }
             */
-            Opponent Ops = new Opponent(grid);
-
+            
+            TicTacToe game = new TicTacToe(grid);
+            Console.WriteLine(game.winner());
+            while (game.winner() == -2)
+            {
+                game.NewInput();
+                Opponent Ops = new Opponent(game);
+                game.UpdateGrid(Ops.BestMove(game).grid);
+            }
+            Console.WriteLine(game.winner());
 
             /*
             char[,] NewGrid = Ops.BestNextMove(Ops.Winners).grid;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,125 +9,73 @@ namespace ThreeInARowAI
 {
     internal class Opponent
     {
-        // AIChar is always X
-        private char AIChar = 'X';
-        public char[,] BMOVE;
-        public Stack<TicTacToe> Frontier = new Stack<TicTacToe>();
-        HashSet<TicTacToe> CheckedNodes = new HashSet<TicTacToe>();
-        public List<TicTacToe> Winners = new List<TicTacToe>();
-        List<TicTacToe> Draws = new List<TicTacToe>();
-        public Opponent(char[,] InitialState)
+       
+        public Opponent(TicTacToe Gamestate)
+        { 
+            
+        }
+        
+        public TicTacToe BestMove(TicTacToe Gamestate)
         {
-            TicTacToe StartingState = new TicTacToe(InitialState);
-           
-            Frontier.Push(StartingState); // Adds the starting state onto the frontier
-            ExpandNode();
-            if (Winners.Count > 0)
+            Action action = new Action(Gamestate.grid);
+            char[,] BMove = null;
+            int BestVal = int.MinValue;
+            Stack<char[,]> InitialMoves = action.TryAll('X');
+            while (InitialMoves.Count > 0)
             {
-                BMOVE = BestNextMove(Winners).grid;
-                Console.WriteLine("Winnable");
+                char[,] Move = InitialMoves.Pop();
+                int val = Minimax(Move,1, false);
+                if (val > BestVal)
+                {
+                    BestVal = val;
+                    BMove = Move;
+                }
             }
-            else if (Draws.Count > 0)
+            for (int i = 0; i<3; i++)
             {
-                BMOVE = BestNextMove(Draws).grid;
+                for (int ii=0; ii<3; ii++)
+                {
+                    Console.Write(BMove[i, ii]);
+                }
+                Console.WriteLine();
+            }
+            TicTacToe BestNextMove = new TicTacToe(BMove); 
+            return BestNextMove;
+        }
+        private int Minimax(char[,] grid, int depth, bool MaxPlayer)
+        {
+            Action Moves = new Action(grid);
+            TicTacToe checkWinner = new TicTacToe(grid);
+            if (checkWinner.winner() != -2)
+            {
+                return checkWinner.winner();
             }
             else
             {
-                
-            }
-
-        }
-        public void ExpandNode()
-        {
-            Console.WriteLine();
-            if (Frontier != null) {
-               
-                while (Frontier.Count > 0)
+                if (MaxPlayer)
                 {
-                    Stack<char[,]> ChildNodes;
-                    TicTacToe node = Frontier.Pop();
-                    Action Expand = new Action(node.grid);
-                    // Receive the stack from Expand.TryALL and and all of the nodes onto the frontier.
-                    if (node.pathCost % 2 == 1)
+                    int bestVal = int.MinValue;
+                    Stack<char[,]> PMoves = Moves.TryAll('X');
+                    while (PMoves.Count > 0)
                     {
-                        ChildNodes = Expand.TryAll(AIChar);
+                        int Outcome = Minimax(PMoves.Pop(), depth + 1, false);
+                        bestVal = int.Max(Outcome, bestVal);
                     }
-                    else
+                    return bestVal;
+                }
+                else
+                {
+                    int bestVal = int.MinValue;
+                    Stack<char[,]> PMoves = Moves.TryAll('O');
+                    while (PMoves.Count > 0)
                     {
-                        ChildNodes = Expand.TryAll('O');
+                        int Outcome = Minimax(PMoves.Pop(), depth + 1, true);
+                        bestVal = int.Max(Outcome, bestVal);
                     }
-                    if (ChildNodes.Count == 0) // If it is a leaf node
-                    {
-                        if (node.winner() == -1)
-                        {
-                            Winners.Add(node);
-                            
-                            
-                        }
-                        else if (node.winner() == 0)
-                        {
-                            Draws.Add(node);
-                        }
-                        Console.WriteLine("Leaf Node");
-
-                    }
-
-                    else if (ChildNodes.Count > 0)
-                    {
-                        Console.WriteLine("Line 76");
-                        for (int i = 0; i < ChildNodes.Count; i++)
-                        {
-                            TicTacToe newState = new TicTacToe(ChildNodes.Pop());
-                            newState.ParentClass = node;  // Adds a reference to the parent node so you can backtrack
-                            newState.pathCost = node.pathCost + 1;
-                            if (node.pathCost % 2 == 1)
-                            {
-                                if (!CheckedNodes.Contains(newState))
-                                {
-                                    Frontier.Push(newState);
-                                    // Adds the new nodes to the frontier and doesn't allow for dupes
-                                }
-
-                            }
-                        }
-                        CheckedNodes.Add(node);
-                        // Adds a node to the explored set
-                    }
+                    return bestVal;
                 }
             }
-        }
-
-        public TicTacToe BestNextMove(List<TicTacToe> UnsortedList)
-        {
-            /* 
-             * If winners has any values in, Implement sorting algorithm
-             * If not, sort Draws if there is any 
-             * If draws is empty, opponent loses
-             * Pick wins with the lowest Path Cost and uses that move.
-             */
-           
-            for (int i = 0;i < UnsortedList.Count-1; i++)
-            {
-                if (UnsortedList[i].pathCost > UnsortedList[i+1].pathCost)
-                {
-                    TicTacToe temp = UnsortedList[i+1];
-                    UnsortedList[i+1] = UnsortedList[i];
-                    UnsortedList[i] = temp;
-                    i = 0;
-                }
-
-            }
-            TicTacToe BestScenario = UnsortedList[0];
-            TicTacToe Parents = BestScenario;
-            while (Parents.pathCost > 1)
-            {
-                Parents = Parents.ParentClass;
-            }
-            
-            
-            
-            
-            return Parents;
         }
     }
+
 }
