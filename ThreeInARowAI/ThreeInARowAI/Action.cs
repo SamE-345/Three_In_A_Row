@@ -8,13 +8,19 @@ namespace ThreeInARowAI
 {
     internal class Action
     {
-        char[,] InitialState;
+        char[,] InitialState =  {
+                { ' ',' ',' ' },
+                { ' ',' ',' ' },
+                { ' ',' ',' ' }
+            };
+        // Problem with either tictactoe class or Opp class that means that there is no grid being passed
         public Action(char[,] Passed_grid) { InitialState = Passed_grid; }
+        
         public char[,] AddTopLeft(char player)
         {
-            char[,] newState = InitialState;
-           
-            if (InitialState[0, 0] == ' ')
+            char[,] newState = InitialState; 
+            
+            if (InitialState[0,0] == null || InitialState[0,0] == ' ')
             {
                 newState[0, 0] = player;
                 
@@ -178,6 +184,10 @@ namespace ThreeInARowAI
                 ChildNodes.Push(AddBottomRight(Player));
             }
             return ChildNodes;
+        }
+        public void UpdateGrid(char[,] Newgrid)
+        {
+            InitialState = Newgrid;
         }
     }
 }

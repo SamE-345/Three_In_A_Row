@@ -17,7 +17,7 @@ namespace ThreeInARowAI
             { ' ',' ',' ' },
             { ' ',' ',' ' }
         };
-        public TicTacToe(char[,] Passed_grid) { grid = Passed_grid; moves = 0; Action NewMoves = new Action(grid); Moves = NewMoves; }
+        public TicTacToe(char[,] Passed_grid) { grid = Passed_grid; moves = 0; }
         public void game()
         {
             while (winner() == -2)
@@ -238,6 +238,10 @@ namespace ThreeInARowAI
                 
             }
             return null;
+        }
+        public void UpdateGrid(char[,] Newgrid)
+        {
+            grid = Newgrid;
         }
     }  
 }
