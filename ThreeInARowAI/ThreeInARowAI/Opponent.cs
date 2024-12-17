@@ -9,36 +9,51 @@ namespace ThreeInARowAI
 {
     internal class Opponent
     {
-       
+
         public Opponent()
-        { 
-            
+        {
+
         }
-        
+
         public TicTacToe BestMove(TicTacToe Gamestate)
         {
             Action action = new Action(Gamestate.grid);
             Console.WriteLine("Displaying grid");
-            
+
+
             char[,] BMove = null;
             int BestVal = int.MinValue;
             Stack<char[,]> InitialMoves = action.TryAll('X');
-            
+
             int len = InitialMoves.Count;
-            for (int i = 0; i<len; i++)
+            Console.WriteLine(len + "Length");
+            for (int i = 0; i < len; i++)
             {
+                Console.WriteLine("loop " + i);
                 char[,] Move = InitialMoves.Pop();
-                int val = Minimax(Move ,1, false);
+                ShowGrid(Move);
+                int val = Minimax(Move, 1, false);
                 if (val > BestVal)
                 {
                     BestVal = val;
                     BMove = Move;
                 }
+
             }
-            
-            TicTacToe BestNextMove = new TicTacToe(BMove);
-            return BestNextMove;
+            if (BMove != null)
+            {
+                Console.WriteLine("NotNull");
+                TicTacToe BestNextMove = new TicTacToe(BMove);
+                return BestNextMove;
+            }
+            else if (BMove == null)
+            {
+                Console.WriteLine("BMOVE is null");
+            }
+            return Gamestate;
         }
+            
+        
         private int Minimax(char[,] grid, int depth, bool MaxPlayer)
         {
             Action Moves = new Action(grid);
@@ -79,6 +94,24 @@ namespace ThreeInARowAI
                     }
                     return bestVal;
                 }
+            }
+        }
+        private void ShowGrid(char[,] grid)
+        {
+            if (grid != null)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int ii = 0; ii < 3; ii++)
+                    {
+                        Console.Write(grid[i, ii]);
+                    }
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Grid was null");
             }
         }
     }

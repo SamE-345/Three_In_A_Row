@@ -88,7 +88,7 @@ namespace ThreeInARowAI
                 return null;
             }
         }
-        public char[,] AddMiddlRight(char player)
+        public char[,] AddMiddleRight(char player)
         {
             char[,] newState = InitialState;
             if (InitialState[1, 2] == ' ')
@@ -134,7 +134,7 @@ namespace ThreeInARowAI
             char[,] newState = InitialState;
             if (InitialState[2, 2] == ' ')
             {
-                newState[0, 0] = player;
+                newState[2, 2] = player;
 
                 return newState;
             }
@@ -167,9 +167,9 @@ namespace ThreeInARowAI
             {
                 ChildNodes.Push(AddMiddle(Player));
             }
-            if(AddMiddleLeft(Player) != null)
+            if (AddMiddleRight(Player) != null)
             {
-                ChildNodes.Push(AddMiddleLeft(Player));
+                ChildNodes.Push(AddMiddleRight(Player));    
             }
             if (AddBottomLeft(Player) != null)
             {
