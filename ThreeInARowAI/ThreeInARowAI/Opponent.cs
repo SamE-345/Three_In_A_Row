@@ -17,21 +17,33 @@ namespace ThreeInARowAI
 
         public TicTacToe BestMove(TicTacToe Gamestate)
         {
-            Action action = new Action(Gamestate.grid);
-            Console.WriteLine("Displaying grid");
-
+            TicTacToe newOne = Gamestate;
+            char[,] tempGrid = newOne.grid;
+            Action action = new Action(tempGrid);
+          
+            //Could the assigning tempGrid be a pointer in memory rather than new array
+            // Array.copy function?
 
             char[,] BMove = null;
             int BestVal = int.MinValue;
+
+
+            Console.WriteLine("Gamestate.grid pre action"); // Gamestate is being modified
+            ShowGrid(newOne.grid);
+
             Stack<char[,]> InitialMoves = action.TryAll('X');
 
+            Console.WriteLine("Gamestate.grid post action"); // Gamestate is being modified
+            ShowGrid(newOne.grid);
+            
+            
             int len = InitialMoves.Count;
-            Console.WriteLine(len + "Length");
+           // Console.WriteLine(len + "Length");
             for (int i = 0; i < len; i++)
             {
-                Console.WriteLine("loop " + i);
+                //Console.WriteLine("loop " + i);
                 char[,] Move = InitialMoves.Pop();
-                ShowGrid(Move);
+                //ShowGrid(Move);
                 int val = Minimax(Move, 1, false);
                 if (val > BestVal)
                 {
@@ -50,7 +62,9 @@ namespace ThreeInARowAI
             {
                 Console.WriteLine("BMOVE is null");
             }
-            return Gamestate;
+            
+            return newOne;
+
         }
             
         
@@ -64,7 +78,7 @@ namespace ThreeInARowAI
             }
             else
             {
-                Console.WriteLine("Success");
+                //Console.WriteLine("Success");
             }
             if (checkWinner.winner() != -2)
             {

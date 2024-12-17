@@ -143,7 +143,7 @@ namespace ThreeInARowAI
                 return null;
             }
         }
-        public Stack<char[,]> TryAll(char Player)
+        public Stack<char[,]> TryAll(char Player) // Is editing the gamestate class
         {
             // Tries all of the actions on a basestate and creates a stack of all possible child nodes and returns them
             Stack<char[,]> ChildNodes = new Stack<char[,]>();
@@ -185,9 +185,6 @@ namespace ThreeInARowAI
             }
             return ChildNodes;
         }
-        public void UpdateGrid(char[,] Newgrid)
-        {
-            InitialState = Newgrid;
-        }
+        
     }
 }

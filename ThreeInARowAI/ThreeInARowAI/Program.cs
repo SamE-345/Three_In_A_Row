@@ -19,7 +19,7 @@
             while(game.winner() == -2)
             {
                 game.NewInput();
-                showGrid(game);
+                //showGrid(game);
                 
                 if (game.winner() != -2)
                 {
