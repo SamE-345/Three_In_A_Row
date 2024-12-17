@@ -8,7 +8,7 @@ namespace ThreeInARowAI
 {
     internal class Action
     {
-        char[,] InitialState =  {
+        public char[,] InitialState =  {
                 { ' ',' ',' ' },
                 { ' ',' ',' ' },
                 { ' ',' ',' ' }
@@ -36,8 +36,8 @@ namespace ThreeInARowAI
             char[,] newState = InitialState;
             if (InitialState[0, 2] == ' ')
             {
+                
                 newState[0, 2] = player;
-
                 return newState;
             }
             else
