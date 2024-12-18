@@ -28,13 +28,10 @@ namespace ThreeInARowAI
             int BestVal = int.MinValue;
 
 
-            Console.WriteLine("Gamestate.grid pre action"); // Gamestate is being modified
-            ShowGrid(newOne.grid);
 
             Stack<char[,]> InitialMoves = action.TryAll('X');
 
-            Console.WriteLine("Gamestate.grid post action"); // Gamestate is being modified
-            ShowGrid(newOne.grid);
+           
             
             
             int len = InitialMoves.Count;
@@ -54,7 +51,7 @@ namespace ThreeInARowAI
             }
             if (BMove != null)
             {
-                Console.WriteLine("NotNull");
+                //Console.WriteLine("NotNull");
                 TicTacToe BestNextMove = new TicTacToe(BMove);
                 return BestNextMove;
             }

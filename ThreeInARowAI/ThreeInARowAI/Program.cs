@@ -5,30 +5,9 @@
 
         static void Main(string[] args)
         {
-            char[,] grid =
-        {
-                { ' ',' ',' ' },
-                { ' ',' ',' ' },
-                { ' ',' ',' ' }
-            };
+            PlayGame();
 
-            
 
-            TicTacToe game = new TicTacToe(grid);
-            Opponent OP = new Opponent();
-            while(game.winner() == -2)
-            {
-                game.grid = game.NewInput();
-                showGrid(game);
-                
-                if (game.winner() != -2)
-                {
-                    break;
-                }
-                game = OP.BestMove(game);
-                showGrid(game);
-            }
-            Console.WriteLine(game.winner());
             
             
 
@@ -42,6 +21,46 @@
                     Console.Write(game.grid[i, ii]);
                 }
                 Console.WriteLine();
+            }
+        }
+        static void PlayGame()
+        {
+            char[,] grid =
+        {
+                { ' ',' ',' ' },
+                { ' ',' ',' ' },
+                { ' ',' ',' ' }
+            };
+
+
+
+            TicTacToe game = new TicTacToe(grid);
+            Opponent OP = new Opponent();
+            while (game.winner() == -2)
+            {
+                game.grid = game.NewInput();
+                Console.WriteLine("");
+                showGrid(game);
+                Console.WriteLine("________");
+                if (game.winner() != -2)
+                {
+                    break;
+                }
+                game = OP.BestMove(game);
+                showGrid(game);
+                Console.WriteLine();
+            }
+            if (game.winner() == 1)
+            {
+                Console.WriteLine("Computer wins");
+            }
+            else if (game.winner() == -1)
+            {
+                Console.WriteLine("Player wins");
+            }
+            else
+            {
+                Console.WriteLine("Draw");
             }
         }
     }
