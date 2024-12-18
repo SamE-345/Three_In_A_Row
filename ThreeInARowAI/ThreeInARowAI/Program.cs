@@ -18,8 +18,8 @@
             Opponent OP = new Opponent();
             while(game.winner() == -2)
             {
-                game.NewInput();
-                //showGrid(game);
+                game.grid = game.NewInput();
+                showGrid(game);
                 
                 if (game.winner() != -2)
                 {

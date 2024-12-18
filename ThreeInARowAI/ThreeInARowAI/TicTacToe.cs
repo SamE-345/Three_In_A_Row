@@ -111,112 +111,112 @@ namespace ThreeInARowAI
                 {
                     if (IntInput == 1)
                     {
-                        if (PlayerAction.AddTopLeft('O') != null)
+                        if (grid[0,0] =='X' || grid[0,0] ==  'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid( PlayerAction.AddTopLeft('O'));
+                            return PlayerAction.AddTopLeft('O');
                         }
                     }
                     else if (IntInput == 2)
                     {
-                        if( PlayerAction.AddTopMiddle('O')!= null)
+                        if(grid[0, 1] == 'X' || grid[0, 1] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid( PlayerAction.AddTopMiddle('O'));
+                            return PlayerAction.AddTopMiddle('O');
                         }
                     }
                     else if (IntInput == 3)
                     {
-                        Console.WriteLine("Inp  3");
-                        if (PlayerAction.AddTopRight('O')!= null)
+                        
+                        if (grid[0, 2] == 'X' || grid[0, 2] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid( PlayerAction.AddTopRight('O'));
+                            return PlayerAction.AddTopRight('O');
                         }
 
                     }
                     else if (IntInput == 4)
                     {
-                        if (PlayerAction.AddMiddleLeft('O')!= null)
+                        if (grid[1, 0] == 'X' || grid[1, 0] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid( PlayerAction.AddMiddleLeft('O'));
+                            return PlayerAction.AddMiddleLeft('O');
                         }
                     }
                     else if (IntInput == 5)
                     {
-                        if(PlayerAction.AddMiddle('O')!= null)
+                        if(grid[1, 1] == 'X' || grid[1, 1] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid(PlayerAction.AddMiddle('O'));
+                            return PlayerAction.AddMiddle('O');
                         }
                     }
                     else if (IntInput == 6)
                     {
-                        if(PlayerAction.AddMiddleRight('O')!= null)
+                        if(grid[1, 2] == 'X' || grid[1, 2] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid(PlayerAction.AddMiddleRight('O'));
+                            return PlayerAction.AddMiddleRight('O');
                         }
                     }
                     else if (IntInput == 7)
                     {
-                        if (PlayerAction.AddBottomLeft('O')!= null)
+                        if (grid[2, 0] == 'X' || grid[2, 0] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid(PlayerAction.AddBottomLeft('O'));
+                            return PlayerAction.AddBottomLeft('O');
                         }
                     }
                     else if (IntInput == 8)
                     {
-                        if (PlayerAction.AddBottomMiddle('O')!= null)
+                        if (grid[2, 1] == 'X' || grid[2, 1] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid( PlayerAction.AddBottomMiddle('O'));
+                            return PlayerAction.AddBottomMiddle('O');
                         }
                     }
                     else if (IntInput == 9)
                     {
-                        if (PlayerAction.AddBottomRight('O')!= null)
+                        if (grid[2, 2] == 'X' || grid[2, 2] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            UpdateGrid(PlayerAction.AddBottomRight('O'));
+                            return PlayerAction.AddBottomRight('O');
                         }
                     }
                     

@@ -14,7 +14,13 @@ namespace ThreeInARowAI
                 { ' ',' ',' ' }
             };
         // Problem with either tictactoe class or Opp class that means that there is no grid being passed
-        public Action(char[,] Passed_grid) { InitialState = Passed_grid; }
+        public Action(char[,] Passed_grid) 
+        {
+            if (Passed_grid != null)
+            {
+                Array.Copy(Passed_grid, InitialState, Passed_grid.Length);
+            }
+        }
         
         public char[,] AddTopLeft(char player)
         {
