@@ -24,7 +24,8 @@ namespace ThreeInARowAI
         
         public char[,] AddTopLeft(char player)
         {
-            char[,] newState = InitialState; 
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length); 
             
             if (InitialState[0,0] == null || InitialState[0,0] == ' ')
             {
@@ -39,7 +40,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddTopRight(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[0, 2] == ' ')
             {
                 
@@ -54,7 +57,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddTopMiddle(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[0, 1] == ' ')
             {
                 newState[0, 1] = player;
@@ -68,7 +73,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddMiddleLeft(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[1, 0] == ' ')
             {
                 newState[1, 0] = player;
@@ -82,7 +89,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddMiddle(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[1, 1] == ' ')
             {
                 newState[1, 1] = player;
@@ -96,7 +105,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddMiddleRight(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[1, 2] == ' ')
             {
                 newState[1, 2] = player;
@@ -110,7 +121,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddBottomLeft(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[2, 0] == ' ')
             {
                 newState[2, 0] = player;
@@ -124,7 +137,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddBottomMiddle(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[2, 1] == ' ')
             {
                 newState[2, 1] = player;
@@ -137,7 +152,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddBottomRight(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[2, 2] == ' ')
             {
                 newState[2, 2] = player;
