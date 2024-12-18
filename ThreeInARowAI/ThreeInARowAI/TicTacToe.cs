@@ -17,17 +17,11 @@ namespace ThreeInARowAI
             { ' ',' ',' ' },
             { ' ',' ',' ' }
         };
-        public TicTacToe(char[,] Passed_grid) { grid = Passed_grid; moves = 0; }
-        public void game()
-        {
-            while (winner() == -2)
-            {
-                NewInput();
-                Opponent AiMove = new Opponent(grid);
-
-            }
-            
+        public TicTacToe(char[,] Passed_grid) {
+            grid = Passed_grid;
+            moves = 0;
         }
+        
         public int moves  
         {
             get;
@@ -42,24 +36,24 @@ namespace ThreeInARowAI
 
             for(int i = 0; i < 3; i++)
             {
-                if (grid[i,0] == grid[i,1]&& grid[i,0] == grid[i, 2])
+                if (grid[i,0] == grid[i,1]&& grid[i,0] == grid[i, 2] && grid[i,0] != ' ')
                 {
                     if (grid[i,0] == 'X')
                     {
                         return 1;
                     }
-                    else
+                    else if (grid[i,0] == 'O')
                     {
                         return -1;
                     }
                 }
                 else if (grid[0, i] == grid[1, i] && grid[0, i] == grid[2, i])
                 {
-                    if (grid[i, 0] == 'X')
+                    if (grid[0, i] == 'X')
                     {
                         return 1;
                     }
-                    else
+                    else if (grid[0,i]=='O')
                     {
                         return -1;
                     }
@@ -71,18 +65,18 @@ namespace ThreeInARowAI
                 {
                     return 1;
                 }
-                else
+                else if (grid[0,0] == 'O')
                 {
                     return -1;
                 }
             }
             else if (grid[0, 2] == grid[1, 1] && grid[0, 2] == grid[2, 0])
             {
-                if (grid[0, 0] == 'X')
+                if (grid[0, 2] == 'X')
                 {
                     return 1;
                 }
-                else
+                else if (grid[0,2]=='O')
                 {
                     return -1;
                 }
@@ -102,31 +96,22 @@ namespace ThreeInARowAI
         }
         public char[,] NewInput()
         {
+            Console.WriteLine("Please enter a number between 1-9");
             Action PlayerAction = new Action(grid);
             ConsoleKeyInfo key = Console.ReadKey();
-            Thread.Sleep(100);
+            Thread.Sleep(500);
+            //Console.Clear();
             char Input = key.KeyChar;
             bool ValidInt = false;
             char[,] PostActionGrid = new char[3, 3];
-            while (ValidInt == false)
-            {
-                Console.WriteLine("Please enter a number between 1-9");
-                try
+           
+            
+            int IntInput = Convert.ToInt32(Input)-'0';
+                if (IntInput < 10 && IntInput > 0)
                 {
-                    int abc = Convert.ToInt32(Input);
-                    ValidInt = true;
-                }
-                catch
-                {
-                    Console.WriteLine("Please enter a number between 1-9");
-                    key = Console.ReadKey();
-                    Input = key.KeyChar;
-                }
-                if (ValidInt == true && Input < 10 && Input > 0)
-                {
-                    if (Input == 1)
+                    if (IntInput == 1)
                     {
-                        if (PlayerAction.AddTopLeft('O') == null)
+                        if (grid[0,0] =='X' || grid[0,0] ==  'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
@@ -136,9 +121,9 @@ namespace ThreeInARowAI
                             return PlayerAction.AddTopLeft('O');
                         }
                     }
-                    else if (Input == 2)
+                    else if (IntInput == 2)
                     {
-                        if( PlayerAction.AddTopMiddle('O')== null)
+                        if(grid[0, 1] == 'X' || grid[0, 1] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
@@ -148,9 +133,10 @@ namespace ThreeInARowAI
                             return PlayerAction.AddTopMiddle('O');
                         }
                     }
-                    else if (Input == 3)
+                    else if (IntInput == 3)
                     {
-                        if (PlayerAction.AddTopRight('O')== null)
+                        
+                        if (grid[0, 2] == 'X' || grid[0, 2] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
@@ -161,9 +147,9 @@ namespace ThreeInARowAI
                         }
 
                     }
-                    else if (Input == 4)
+                    else if (IntInput == 4)
                     {
-                        if (PlayerAction.AddMiddleLeft('O')== null)
+                        if (grid[1, 0] == 'X' || grid[1, 0] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
@@ -173,33 +159,33 @@ namespace ThreeInARowAI
                             return PlayerAction.AddMiddleLeft('O');
                         }
                     }
-                    else if (Input == 5)
+                    else if (IntInput == 5)
                     {
-                        if(PlayerAction.AddMiddle('O')== null)
+                        if(grid[1, 1] == 'X' || grid[1, 1] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            PlayerAction.AddMiddle('O');
+                            return PlayerAction.AddMiddle('O');
                         }
                     }
-                    else if (Input == 6)
+                    else if (IntInput == 6)
                     {
-                        if(PlayerAction.AddMiddlRight('O')== null)
+                        if(grid[1, 2] == 'X' || grid[1, 2] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
                         }
                         else
                         {
-                            PlayerAction.AddMiddlRight('O');
+                            return PlayerAction.AddMiddleRight('O');
                         }
                     }
-                    else if (Input == 7)
+                    else if (IntInput == 7)
                     {
-                        if (PlayerAction.AddBottomLeft('O')== null)
+                        if (grid[2, 0] == 'X' || grid[2, 0] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
@@ -209,9 +195,9 @@ namespace ThreeInARowAI
                             return PlayerAction.AddBottomLeft('O');
                         }
                     }
-                    else if (Input == 8)
+                    else if (IntInput == 8)
                     {
-                        if (PlayerAction.AddBottomMiddle('O')== null)
+                        if (grid[2, 1] == 'X' || grid[2, 1] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
@@ -221,9 +207,9 @@ namespace ThreeInARowAI
                             return PlayerAction.AddBottomMiddle('O');
                         }
                     }
-                    else if (Input == 9)
+                    else if (IntInput == 9)
                     {
-                        if (PlayerAction.AddBottomRight('O')== null)
+                        if (grid[2, 2] == 'X' || grid[2, 2] == 'O')
                         {
                             ValidInt = false;
                             Console.WriteLine("Spot already taken");
@@ -233,15 +219,18 @@ namespace ThreeInARowAI
                             return PlayerAction.AddBottomRight('O');
                         }
                     }
+                    
                 }
-                else { ValidInt = false; }
+                //else { ValidInt = false; Console.WriteLine("Enter a number between 1-9");  key = Console.ReadKey(); Input = key.KeyChar; }
                 
-            }
-            return null;
+            
+            return grid;
         }
         public void UpdateGrid(char[,] Newgrid)
         {
+            Console.WriteLine("Update");
             grid = Newgrid;
+            
         }
     }  
 }

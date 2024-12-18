@@ -8,17 +8,24 @@ namespace ThreeInARowAI
 {
     internal class Action
     {
-        char[,] InitialState =  {
+        public char[,] InitialState =  {
                 { ' ',' ',' ' },
                 { ' ',' ',' ' },
                 { ' ',' ',' ' }
             };
         // Problem with either tictactoe class or Opp class that means that there is no grid being passed
-        public Action(char[,] Passed_grid) { InitialState = Passed_grid; }
+        public Action(char[,] Passed_grid) 
+        {
+            if (Passed_grid != null)
+            {
+                Array.Copy(Passed_grid, InitialState, Passed_grid.Length);
+            }
+        }
         
         public char[,] AddTopLeft(char player)
         {
-            char[,] newState = InitialState; 
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length); 
             
             if (InitialState[0,0] == null || InitialState[0,0] == ' ')
             {
@@ -33,11 +40,13 @@ namespace ThreeInARowAI
         }
         public char[,] AddTopRight(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[0, 2] == ' ')
             {
+                
                 newState[0, 2] = player;
-
                 return newState;
             }
             else
@@ -48,7 +57,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddTopMiddle(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[0, 1] == ' ')
             {
                 newState[0, 1] = player;
@@ -62,7 +73,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddMiddleLeft(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[1, 0] == ' ')
             {
                 newState[1, 0] = player;
@@ -76,7 +89,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddMiddle(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[1, 1] == ' ')
             {
                 newState[1, 1] = player;
@@ -88,9 +103,11 @@ namespace ThreeInARowAI
                 return null;
             }
         }
-        public char[,] AddMiddlRight(char player)
+        public char[,] AddMiddleRight(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[1, 2] == ' ')
             {
                 newState[1, 2] = player;
@@ -104,7 +121,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddBottomLeft(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[2, 0] == ' ')
             {
                 newState[2, 0] = player;
@@ -118,7 +137,9 @@ namespace ThreeInARowAI
         }
         public char[,] AddBottomMiddle(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[2, 1] == ' ')
             {
                 newState[2, 1] = player;
@@ -131,10 +152,12 @@ namespace ThreeInARowAI
         }
         public char[,] AddBottomRight(char player)
         {
-            char[,] newState = InitialState;
+            char[,] newState = new char[3, 3];
+            Array.Copy(InitialState, newState, InitialState.Length);
+
             if (InitialState[2, 2] == ' ')
             {
-                newState[0, 0] = player;
+                newState[2, 2] = player;
 
                 return newState;
             }
@@ -143,7 +166,7 @@ namespace ThreeInARowAI
                 return null;
             }
         }
-        public Stack<char[,]> TryAll(char Player)
+        public Stack<char[,]> TryAll(char Player) // Is editing the gamestate class
         {
             // Tries all of the actions on a basestate and creates a stack of all possible child nodes and returns them
             Stack<char[,]> ChildNodes = new Stack<char[,]>();
@@ -167,9 +190,9 @@ namespace ThreeInARowAI
             {
                 ChildNodes.Push(AddMiddle(Player));
             }
-            if(AddMiddleLeft(Player) != null)
+            if (AddMiddleRight(Player) != null)
             {
-                ChildNodes.Push(AddMiddleLeft(Player));
+                ChildNodes.Push(AddMiddleRight(Player));    
             }
             if (AddBottomLeft(Player) != null)
             {
@@ -185,9 +208,6 @@ namespace ThreeInARowAI
             }
             return ChildNodes;
         }
-        public void UpdateGrid(char[,] Newgrid)
-        {
-            InitialState = Newgrid;
-        }
+        
     }
 }
